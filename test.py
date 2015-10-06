@@ -8,17 +8,16 @@ def cartesian_distance(atom1, atom2):
 def atom_choosing():
 	"This will select an atom from the stucture"
 	structure = parser.get_structure(filename[0:-4], filename)
-	atoms = structure.get_atoms()
-	#m = raw_input('Which model?  ')
-	model = structure[0]
-	#chain = raw_input('Which chain?  ')
-	chain = model['A']
-	residue = chain[10]
-	atom = residue['CA']
-	atom1 = structure[0]['A'][10]['CA']
-	#print "\n\n\n", atom.get_full_id()
-	atom2 = structure[0]['A'][20]['CA']
-	cartesian_distance(atom1, atom2)
+	for model in structure:
+   	 	for chain in model:
+       		 for residue in chain:
+            		try:
+		                atom_1 = residue['N'] 
+		                atom_2 = residue['CA'] 
+		              	distance = atom_1 - atom_2
+		              	print distance
+            		except:
+               			pass
 	return
 
 parser = PDBParser(PERMISSIVE=1)
@@ -29,10 +28,4 @@ else:
 	print "Make sure this is a .pdb file."
 
 
-
-#model, chain, residue, atom
-
-#atom1 = raw_input("First atom, please!\n")
-#atom2 = raw_input("Second one, too.\n")
-#cartesian_distance(atom1, atom2)
 
