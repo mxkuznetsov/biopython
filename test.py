@@ -13,7 +13,7 @@ def atom_choosing():
        		 for residue in chain:
             		try:
 		                atom_1 = residue['N'] 
-		                atom_2 = residue['CA'] 
+		                atom_2 = residue['O'] 
 		              	distance = atom_1 - atom_2
 		              	print distance
             		except:
