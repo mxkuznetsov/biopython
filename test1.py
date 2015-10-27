@@ -12,11 +12,10 @@ def atom_choosing():
    	 	for chain in model:
        		 for residue in chain:
             		try:
-		                atom_1 = residue['N'] 
-		                atom_2 = residue['O'] 
-		              	distance = atom_1 - atom_2
-		              	print distance
-		              	print residue.resname
+		                full_id = residue.get_full_id()
+		                if  "W" in full_id[3][0]:
+		                	print full_id
+		                #	print full_id[3][0]
             		except:
                			pass
 	return
@@ -28,5 +27,5 @@ if ".pdb" in filename:
 else: 
 	print "Make sure this is a .pdb file."
 
-
+	
 
