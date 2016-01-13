@@ -37,5 +37,5 @@ asked Wes for help and we pseudo-coded how to fill a 2D array. will look into Nu
 ####10/27 eod:
 the script will display the full id of any water molecule in the chain! The information is stored as a tuple, where the 'W' identifier signifies water. The next step would be to take those atoms and find the distance between them.
 
-####113 eod:
+####1/13 eod:
 Revisited this script, took a little bit of time to catch back up. Am thinking that storing all of the atoms in two arrays, then subtracting each entry and saving it in a 2D array. Then, filter by the waters. 
