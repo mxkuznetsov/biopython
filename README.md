@@ -1,6 +1,6 @@
 ## biopython
 Using the biopython module to find the distance between two atoms.
-
+1/13: done by finding the distance between every atom in the molecule and then filtering by only the distances of the waters.
 
 =======
 
