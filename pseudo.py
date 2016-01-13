@@ -1,7 +1,10 @@
 from Bio.PDB import *
+import numpy as np
+
+
 waters = []
-atoms = []
-#distances = [][] distances should be a 2D array or a NumPy matrix
+atoms = np.array([])
+# for x in range(len(atoms)] #distances should be a 2D array or a NumPy matrix
 
 def cartesian_distance(atom1, atom2):
 	"This will print the Cartesian distance between two atoms."
@@ -15,16 +18,25 @@ def atom_choosing():
 	for model in structure:
    	 	for chain in model:
        		 for residue in chain:
-            		try:
+            		#try:
 		                full_id = residue.get_full_id()
-		                atoms.extend(full_id)
-		                if  "W" in full_id[3][0]:
-		                	waters.extend(full_id)
+		                atoms.append(full_id) #an array of all the atoms
+		                at1 = np.array(atoms, dtype = tuple)
+		                at2 = np.array(atoms, dtype = tuple)
+		                print at1[1] - at2[1]
+		               # i = 0
+		                #j = 0
+		                #while i <= 10:
+		               # 	while i <= 10:
+		                		#distances[i][j] =  atoms[i] - atoms[j]
+		                #		j = j +1
+		               # 	i = i + 1
+		               # if  "W" in full_id[3][0]:
+		                #	waters.append(full_id) #an array of all the waters
+ 
+		                	                	
 
-		                print waters
-		                print atoms
-            		except:
-               			pass
+
 
 def create_2D_array():
 	"This will create a 2D array of distances between waters"
@@ -38,6 +50,8 @@ def create_2D_array():
 	to fill the column, 
 	then increment the waters and continue until all waters 
 	have been incemented"""
+	dist = np.zeros(len(atoms), dtype = int)
+	print dist
 
 	return	
 	
@@ -50,5 +64,6 @@ parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
 	atom_choosing()
+	create_2D_array()
 else: 
 	print "Make sure this is a .pdb file."
