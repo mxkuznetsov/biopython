@@ -11,7 +11,8 @@ Using the biopython module to find the distance between two atoms.
 - run ```python test.py```
 - when prompted from input, type the name of the file in the format ```xxx.pdb```
 - this may take a while, but the file is being generated.
-- once it is complete, check the window for a message that reads ```Check your folder for a file titled 'distances.csv'.```
+- once it is complete, check the window for a message that reads ```Check your folder for a file titled 'pdbfilename-distances.csv'.```
+- in the same folder as the program should be a .csv containing the name of your pdb file
 
 #####roadblocks:
 * I'm not quite sure how to identify where waters are in the molecule (X)
@@ -46,3 +47,6 @@ Revisited this script, took a little bit of time to catch back up. Am thinking t
 
 ####1/14 eod:
 was able to put all atoms into a list, then convert to numpy array. the arrays are subtracted from each other and saved in a matrix, which is then saved to a .csv. am trying to get headers on this. Next step would be to filter by atoms that are waters and potentially highlight distances between 2.5-3.6 A.
+
+####1/15 eod:
+x-axis headers with the name of the atom. The terminal will save each .pdb file in a file named after the pdb file.
