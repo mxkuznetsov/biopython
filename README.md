@@ -2,20 +2,23 @@
 Using the biopython module to find the distance between two atoms.
 
 1/13: done by finding the distance between every atom in the molecule and then filtering by only the distances of the waters.
+1/14: Given a .PDB file, this script will generate a giant .csv file containing the distance between every atom in the file.
 
 =======
 
 ###to run (in powershell/python): 
 - make sure you are in the ```Python27``` folder and that the required ```.pdb``` files are in the same folder.  Mine are nested as ```Python27\biopython\filename```
 - run ```python test.py```
-- when prompted from input, type ```1FAT.pdb```
+- when prompted from input, type the name of the file in the format ```xxx.pdb```
+- this may take a while, but the file is being generated.
+- once it is complete, check the window for a message that reads ```Check your folder for a file titled 'distances.csv'.```
 
 #####roadblocks:
 * I'm not quite sure how to identify where waters are in the molecule (X)
 * need to sort out how the hierarchy (Structure > Model > Chain > Residue > Atom) works (X)
-* how to search within atoms when location is unknown
+* how to search within atoms when location is unknown (X) (use atom object!)
 * how to isolate water as a residue -- waters are not a residue, they are listed in the same category as the R group. (X)
-* how to use NumPy arrays. Is a matrix better in this case?
+* how to use NumPy arrays. Is a matrix better in this case? (X) (used matrix)
 
 
 ##### future things to include in the code:
@@ -40,3 +43,4 @@ the script will display the full id of any water molecule in the chain! The info
 
 ####1/13 eod:
 Revisited this script, took a little bit of time to catch back up. Am thinking that storing all of the atoms in two arrays, then subtracting each entry and saving it in a 2D array. Then, filter by the waters. 
+
