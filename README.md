@@ -44,3 +44,5 @@ the script will display the full id of any water molecule in the chain! The info
 ####1/13 eod:
 Revisited this script, took a little bit of time to catch back up. Am thinking that storing all of the atoms in two arrays, then subtracting each entry and saving it in a 2D array. Then, filter by the waters. 
 
+####1/14 eod:
+was able to put all atoms into a list, then convert to numpy array. the arrays are subtracted from each other and saved in a matrix, which is then saved to a .csv. am trying to get headers on this. Next step would be to filter by atoms that are waters and potentially highlight distances between 2.5-3.6 A.
