@@ -58,12 +58,18 @@ def create_2D_array():
 		#np.savetxt("x.csv", a, delimiter =",")
 	return answer
 
-def save_file(file):
+def generate_file_name(filename):
+	return filename[0:-4] + '-distances.csv'
+
+def save_file(file, filename):
 	"This will convert the matrix to a .csv"
-	with open('distances.csv', 'wb') as f:
+	saved_file = generate_file_name(filename)
+	with open(saved_file, 'wb') as f:
 		head = ','.join(header)
 		#f.write(','.join(header))
-		np.savetxt("distances.csv", file, delimiter=",", header= head)
+		np.savetxt(saved_file, file, delimiter=",", header= head)
+	return saved_file
+
 	
 print """This program will create a file containing the distance between every atom in this structure."""
 
@@ -71,7 +77,7 @@ parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
 	atom_array()
-	save_file(create_2D_array())
-	print "Check your folder for a file titled 'distances.csv'."
+	save_file(create_2D_array(), filename)
+	print "Check your folder for a file titled " + generate_file_name(filename) + "."
 else: 
 	print "Make sure this is a .pdb file."
