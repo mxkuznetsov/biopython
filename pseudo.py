@@ -5,7 +5,8 @@ import numpy as np
 atoms = []
 waters = []
 id_array = []
-distances = []
+header = []
+head = ''
 
 # for x in range(len(atoms)] #distances should be a 2D array or a NumPy matrix
 
@@ -23,8 +24,9 @@ def atom_array():
    	 	for chain in model:
        		 for residue in chain:
         		for atom in residue:
-		                full_id = atom.get_full_id()
-		                id_array.append(atom) #an array of full ids, which as stored as tuples                    		
+		                #full_id = atom.get_full_id())
+		                id_array.append(atom)
+		                header.append(str(atom)) #an array of full ids, which as stored as tuples                    		
 	              	                	
 
 def create_2D_array():
@@ -58,9 +60,12 @@ def create_2D_array():
 
 def save_file(file):
 	"This will convert the matrix to a .csv"
-	np.savetxt("distances.csv", file, delimiter=",")
+	with open('distances.csv', 'wb') as f:
+		head = ','.join(header)
+		#f.write(','.join(header))
+		np.savetxt("distances.csv", file, delimiter=",", header= head)
 	
-print """This program will return the distance between every atom in this structure."""
+print """This program will create a file containing the distance between every atom in this structure."""
 
 parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
