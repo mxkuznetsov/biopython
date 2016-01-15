@@ -1,30 +1,31 @@
 from Bio.PDB import *
-waters = []
+import numpy as np
+#np.set_printoptions(threshold='nan')
+
 atoms = []
-#distances = [][] distances should be a 2D array or a NumPy matrix
+waters = []
+id_array = []
+distances = []
 
-def cartesian_distance(atom1, atom2):
+# for x in range(len(atoms)] #distances should be a 2D array or a NumPy matrix
+
+def cart_dist(atom1, atom2):
 	"This will print the Cartesian distance between two atoms."
-	print atom1 - atom2
-	return
+	diff =   atom1 - atom2
+	return diff
+	#return np.sqrt(np.sum(diff * diff))
 
-def atom_choosing():
-	"This will select an atom from the stucture"
+def atom_array():
+	"This will inital an array of all the atoms in the structure"
 
 	structure = parser.get_structure(filename[0:-4], filename)
 	for model in structure:
    	 	for chain in model:
        		 for residue in chain:
-            		try:
-		                full_id = residue.get_full_id()
-		                atoms.extend(full_id)
-		                if  "W" in full_id[3][0]:
-		                	waters.extend(full_id)
-
-		                print waters
-		                print atoms
-            		except:
-               			pass
+        		for atom in residue:
+		                full_id = atom.get_full_id()
+		                id_array.append(atom) #an array of full ids, which as stored as tuples                    		
+	              	                	
 
 def create_2D_array():
 	"This will create a 2D array of distances between waters"
@@ -38,17 +39,34 @@ def create_2D_array():
 	to fill the column, 
 	then increment the waters and continue until all waters 
 	have been incemented"""
+	  #this converts the python list to a numpy array
+	#print id_np_array
+	#dist = np.zeros(len(atoms), dtype = int)
+	#print dist
+	atoms = np.array(id_array, dtype=object)
+	atom1 = atoms
+	atom2 = atoms
+	answer = np.zeros((len(atoms), len(atoms)), np.double)
+	for row, atom1 in enumerate(atoms):
+		for col, atom2 in enumerate(atoms):
+			answer[row, col] = cart_dist(atom1, atom2)
 
-	return	
+	#for x in xrange(0, len(atoms):
+		#a = cart_dist(atoms, atoms[x])
+		#np.savetxt("x.csv", a, delimiter =",")
+	return answer
+
+def save_file(file):
+	"This will convert the matrix to a .csv"
+	np.savetxt("distances.csv", file, delimiter=",")
 	
-print """This program will return the full ids of every water in this structure.
-		Read as follows: structure, model, chain, residue id.
-		The residue id reads (water, position of residue, insertion code)."""
-
+print """This program will return the distance between every atom in this structure."""
 
 parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
-	atom_choosing()
+	atom_array()
+	save_file(create_2D_array())
+	print "Check your folder for a file titled 'distances.csv'."
 else: 
 	print "Make sure this is a .pdb file."
