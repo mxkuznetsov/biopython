@@ -52,11 +52,11 @@ def create_2D_array():
 	atoms3 = len(atoms) + 1
 	atom1 = atoms
 	atom2 = atoms
-	answer = np.zeros((len(atoms), atoms3) , np.double)
+	answer = np.zeros((len(atoms), atoms3) , np.object)
 	for row, atom1 in enumerate(atoms):
+		answer[row, 0] = str(atom1.get_bfactor()) #atom1.get_full_id()
 		for col, atom2 in enumerate(atoms):
 			answer[row, (col + 1)] = cart_dist(atom1, atom2)
-
 
 	#for x in xrange(0, len(atoms):
 		#a = cart_dist(atoms, atoms[x])
@@ -72,7 +72,7 @@ def save_file(file, filename):
 	with open(saved_file, 'wb') as f:
 		head = ','.join(header)
 		#f.write(','.join(header))
-		np.savetxt(saved_file, file, delimiter=",", header= head)
+		np.savetxt(saved_file, file, delimiter=",", header= head, fmt="%s")
 	return saved_file
 
 	
@@ -83,7 +83,6 @@ filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
 	atom_array()
 	create_2D_array()
-	print id_array
 	save_file(create_2D_array(), filename)
 	print "Check your folder for a file titled " + generate_file_name(filename) + "."
 else: 
