@@ -5,7 +5,7 @@ import numpy as np
 atoms = []
 waters = []
 id_array = []
-header = []
+header = [" "]
 head = ''
 
 # for x in range(len(atoms)] #distances should be a 2D array or a NumPy matrix
@@ -24,9 +24,12 @@ def atom_array():
    	 	for chain in model:
        		 for residue in chain:
         		for atom in residue:
-		                #full_id = atom.get_full_id())
-		                id_array.append(atom)
-		                header.append(str(atom)) #an array of full ids, which as stored as tuples                    		
+		                full_id = atom.get_full_id()
+		                if  "W" in full_id[3][0]:
+		                	id_array.append(atom)
+		                	header.append(str(atom))
+		                	#print atom.get_full_id()
+		                 #an array of full ids, which as stored as tuples                    		
 	              	                	
 
 def create_2D_array():
@@ -46,12 +49,14 @@ def create_2D_array():
 	#dist = np.zeros(len(atoms), dtype = int)
 	#print dist
 	atoms = np.array(id_array, dtype=object)
+	atoms3 = len(atoms) + 1
 	atom1 = atoms
 	atom2 = atoms
-	answer = np.zeros((len(atoms), len(atoms)), np.double)
+	answer = np.zeros((len(atoms), atoms3) , np.double)
 	for row, atom1 in enumerate(atoms):
 		for col, atom2 in enumerate(atoms):
-			answer[row, col] = cart_dist(atom1, atom2)
+			answer[row, (col + 1)] = cart_dist(atom1, atom2)
+
 
 	#for x in xrange(0, len(atoms):
 		#a = cart_dist(atoms, atoms[x])
@@ -77,6 +82,8 @@ parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
 	atom_array()
+	create_2D_array()
+	print id_array
 	save_file(create_2D_array(), filename)
 	print "Check your folder for a file titled " + generate_file_name(filename) + "."
 else: 
