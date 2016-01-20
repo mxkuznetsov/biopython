@@ -4,6 +4,7 @@ import numpy as np
 
 atoms = []
 waters = []
+w_id_array = []
 id_array = []
 header = [" "]
 head = ''
@@ -13,8 +14,8 @@ head = ''
 def cart_dist(atom1, atom2):
 	"This will print the Cartesian distance between two atoms."
 	diff =   atom1 - atom2
-	#return diff
-	return np.sqrt(np.sum(diff * diff))
+	return diff
+	#return np.sqrt(np.sum(diff * diff))
 
 def atom_array():
 	"This will inital an array of all the atoms in the structure"
@@ -25,8 +26,9 @@ def atom_array():
        		 for residue in chain:
         		for atom in residue:
 		                full_id = atom.get_full_id()
+		                id_array.append(atom) #array of atoms
 		                if  "W" in full_id[3][0]:
-		                	id_array.append(atom)
+		                	w_id_array.append(atom) #array of waters
 		                	header.append(str(atom.get_full_id()[3][1]))
 		                	#print atom.get_full_id()
 		                 #an array of full ids, which as stored as tuples                    		
@@ -39,29 +41,18 @@ def create_2D_array():
 	and null + atoms for 0th column
 	data in between should be distances, with a diagonal of 0s"""
 
-	""" for waters[i] and atoms[j]
-	run through every atom and subtract the water in the column 
-	to fill the column, 
-	then increment the waters and continue until all waters 
-	have been incemented"""
-	  #this converts the python list to a numpy array
-	#print id_np_array
-	#dist = np.zeros(len(atoms), dtype = int)
-	#print dist
-	atoms = np.array(id_array, dtype=object)
-	atoms3 = len(atoms) + 1
-	atom1 = atoms
-	atom2 = atoms
-	answer = np.zeros((len(atoms), atoms3) , np.object)
+	atoms = np.array(id_array, dtype=object) #numpy array of all atoms
+	waters = np.array(w_id_array, dtype=object) #numpy array of all waters
+	atoms3 = len(waters) + 1 #initial col numbering
+	atom1 = atoms #row
+	atom2 = waters #col
+	answer = np.zeros((len(atoms), atoms3) , np.object) #row, columns
 	for row, atom1 in enumerate(atoms):
 		answer[row, 0] = str(atom1.get_full_id()[3][1]) #atom1.get_full_id()
-		for col, atom2 in enumerate(atoms):
+		for col, atom2 in enumerate(waters):
 			if (cart_dist(atom1, atom2) <= 3.4) and (cart_dist(atom1, atom2) >= 2.0):
 				answer[row, (col + 1)] = cart_dist(atom1, atom2)
 
-	#for x in xrange(0, len(atoms):
-		#a = cart_dist(atoms, atoms[x])
-		#np.savetxt("x.csv", a, delimiter =",")
 	return answer
 
 def generate_file_name(filename):
