@@ -15,17 +15,20 @@ def save_file(file, filename):
 def renumber(): 
 	"This will inital an array of all the atoms in the structure"
 	structure = parser.get_structure(filename[0:-4], filename)
+	#atom_li = Selection.unfold_entities(structure, 'A')
 	for model in structure:
    	 	for chain in model:
-       		 for residue in chain:
-       		 	#atom 1 in residue.get_bfactor()
-     			print residue.get_segid()
-        		for atom in residue:
-		                b_fact = atom.get_bfactor()
-		               # atom.set_bfactor(atom1.get_bfactor())
-		               # print b_fact 
+   	 		res_list = list(chain.get_residues())
+       		for residue in chain:
+       			#res = residue.get_id()[1]
+       			if residue.get_atom() == ['CA']:
+       				alpha_atom = atom
+       				for atom in residue:
+       					atom.set_bfactor(alpha_atom.get_bfactor())
+       					print atom.get_bfactor()
+
 	
-print """This program will renumber all additional generic numbers"""
+#print """This program will renumber all additional generic numbers"""
 
 parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
