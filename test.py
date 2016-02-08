@@ -48,30 +48,12 @@ def create_2D_array():
 	atom2 = waters #col
 	answer = np.zeros((len(atoms), atoms3) , np.object) #row, columns
 	for row, atom1 in enumerate(atoms):
-		#answer[row, 0] = str(atom1.get_full_id()[3][1]) #atom1.get_full_id()
-		answer[row, 0] = str(atom1.get_bfactor())
+		answer[row, 0] = str(atom1.get_full_id()[3][1]) #atom1.get_full_id()
 		for col, atom2 in enumerate(waters):
 			if (cart_dist(atom1, atom2) <= 3.4) and (cart_dist(atom1, atom2) >= 2.0):
 				answer[row, (col + 1)] = cart_dist(atom1, atom2)
 
 	return answer
-
-def renumber(): 
-	"This will inital an array of all the atoms in the structure"
-	structure = parser.get_structure(filename[0:-4], filename)
-	#atom_li = Selection.unfold_entities(structure, 'A')
-	for model in structure:
-   	 	for chain in model:
-   	 		res_list = list(chain.get_residues())
-       		for residue in chain:
-       			if len(residue.get_list()) > 1:
-       				alpha_atom = residue.get_list()[1]
-       				#print alpha_atom
-       				#if residue['CA'].fullname == [ 'CA' ]:
-       					#alpha_atom = residue['CA']
-       			for atom in residue:
-       						atom.set_bfactor(alpha_atom.get_bfactor())
-       						#print atom.get_bfactor()	
 
 def generate_file_name(filename):
 	return filename[0:-4] + '-distances.csv'
@@ -91,7 +73,6 @@ print """This program will create a file containing the distance between every a
 parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
-	renumber()
 	atom_array()
 	create_2D_array()
 	save_file(create_2D_array(), filename)
