@@ -1,5 +1,5 @@
 from Bio.PDB import *
-
+import numpy as np
 
 
 def generate_file_name(filename):
@@ -20,12 +20,15 @@ def renumber():
    	 	for chain in model:
    	 		res_list = list(chain.get_residues())
        		for residue in chain:
-       			#res = residue.get_id()[1]
-       			if residue.get_atom() == ['CA']:
-       				alpha_atom = atom
-       				for atom in residue:
-       					atom.set_bfactor(alpha_atom.get_bfactor())
-       					print atom.get_bfactor()
+       			if len(residue.get_list()) > 1:
+       				alpha_atom = residue.get_list()[1]
+       				print alpha_atom
+       				#if residue['CA'].fullname == [ 'CA' ]:
+       					#alpha_atom = residue['CA']
+       			for atom in residue:
+       						atom.set_bfactor(alpha_atom.get_bfactor())
+
+       						print atom.get_bfactor()
 
 	
 #print """This program will renumber all additional generic numbers"""
