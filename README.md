@@ -2,35 +2,33 @@
 Using the biopython module to find the distance between two atoms.
 
 
-####10/27 eod:
-the script will display the full id of any water molecule in the chain! The information is stored as a tuple, where the 'W' identifier signifies water. The next step would be to take those atoms and find the distance between them.
-
-####9/24 eod:
-use file 1FAT.pdb as detailed in <a href = "http://www.biotnet.org/sites/biotnet.org/files/documents/25/biopython_pdb.pdf" alt="the source"> this example source </a>. Will find distance between two atoms (everthing is hard coded at this point)
-=======
->>>>>>> master
 
 
-###to run (in powershell/python): 
+
+##to run (in powershell/python): 
 - make sure you are in the ```Python27``` folder and that the required ```.pdb``` files are in the same folder.  Mine are nested as ```Python27\biopython\filename```
 - run ```python test.py```
-- when prompted from input, type ```1FAT.pdb```
+- when prompted from input, type the name of the file in the format xxx.pdb
+- this may take a while, but the file is being generated.
+- once it is complete, check the window for a message that reads ```Check your folder for a file titled 'pdbfilename-distances.csv'.```
+in the same folder as the program should be a .csv containing the name of your pdb file
 
-#####roadblocks:
-* I'm not quite sure how to identify where waters are in the molecule
-* need to sort out how the hierarchy (Structure > Model > Chain > Residue > Atom) works 
-* how to search within atoms when location is unknown
-* how to isolate water as a residue -- waters are not a residue, they are listed in the same category as the R group.
-
-
-##### future things to include in the code:
-* checks for proper file format
-* ability to pull .pdb files from the database
-* ability to preview which chain one is looking for
+###which files are relevant?
+- program has been run on several files for testing
+- use  ```test.py``` and the .pdb file of your choosing
 
 
-####10/6 eod:
-altered code as in <a href ="http://stackoverflow.com/questions/26193034/can-any-one-help-me-understand-and-solve-this-error" alt="the source"> this stackoverflow article. </a> It will now calculate the distance between any two residue types in a structure.
-However! It will not find waters (HOH) and it will also not calculate distance between two identical residue types.
-####9/24 eod:
-use file 1FAT.pdb as detailed in <a href = "http://www.biotnet.org/sites/biotnet.org/files/documents/25/biopython_pdb.pdf" alt="the source"> this example source </a>. Will find distance between two atoms (everthing is hard coded at this point)
+###test.py
+- this file generates a .csv file
+- filters to distances of 2.0 to 3.5 A, with waters on x-axis and atoms on y-axis
+- the x-axis is the atom number of the water
+- the y-axis is the residue number of the atom it's being compared to
+- any value greater or larger is printed as a 0
+
+
+###renumber.py
+- this file is not complete
+- the end goal is to have the output save as a file
+- the script takes the file and renumbers all atoms in a residue to have the same b factor
+- the b factor is taken from the alpha carbon
+- when run, the console will print the alpha carbon, followed by the b factor o every atom in it (which is all the same)

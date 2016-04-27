@@ -23,21 +23,17 @@ def renumber():
        			if len(residue.get_list()) > 1:
        				alpha_atom = residue.get_list()[1]
        				print alpha_atom
-       				#if residue['CA'].fullname == [ 'CA' ]:
-       					#alpha_atom = residue['CA']
        			for atom in residue:
        						atom.set_bfactor(alpha_atom.get_bfactor())
-
        						print atom.get_bfactor()
 
-	
-#print """This program will renumber all additional generic numbers"""
+
 
 parser = PDBParser(PERMISSIVE=1)
 filename = raw_input('What is the file name? The format should be xxx.pdb\n')
 if ".pdb" in filename:
 	renumber()
-	#save_file(renumber(), filename)
+	save_file(renumber(), filename)
 	print "Check your folder for a file titled " + generate_file_name(filename) + "."
 else: 
 	print "Make sure this is a .pdb file."
