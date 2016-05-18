@@ -28,5 +28,5 @@ in the same folder as the program should be a .csv containing the name of your p
 - the end goal is to have the output save as a file
 - the script takes the file and renumbers all atoms in a residue to have the same b factor
 - the b factor is taken from the alpha carbon
-- when run, the console will print the alpha carbon, followed by the b factor o every atom in it (which is all the same)
+- when run, the console will print the alpha carbon, followed by the b factor of every atom in it (which is all the same)
 - the file used for input should be one that has had the b factors of its alpha carbons renumbered using consensus numbering
