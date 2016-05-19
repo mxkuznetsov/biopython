@@ -13,6 +13,7 @@ in the same folder as the program should be a .csv containing the name of your p
 ###which files are relevant?
 - program has been run on several files for testing
 - use  ```test.py``` and the .pdb file of your choosing
+- ```1FAT.pdb``` is one that I use often, it's smaller
 
 
 ###test.py
