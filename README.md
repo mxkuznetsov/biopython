@@ -2,7 +2,7 @@
 Using the biopython module to find the distance between two atoms.
 
 
-##to run (in powershell/python): 
+###to run (in powershell/python): 
 - make sure you are in the ```Python27``` folder and that the required ```.pdb``` files are in the same folder.  Mine are nested as ```Python27\biopython\filename```
 - run ```python test.py```
 - when prompted from input, type the name of the file in the format xxx.pdb
